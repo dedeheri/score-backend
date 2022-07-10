@@ -1,0 +1,208 @@
+const express = require("express");
+const {
+  getAllData,
+  confirmAccount,
+  addSchedule,
+  viewSchedule,
+  editSchedule,
+  deleteSchedule,
+  viewTeacher,
+  detailTeacher,
+  viewStudent,
+  detailStudent,
+  addTeacher,
+  addStudent,
+  detailSchedule,
+  deleteTeacher,
+  addClass,
+  deleteClass,
+  viewClass,
+  editClass,
+  detailClass,
+  editTeacher,
+  deleteStudent,
+  editStudent,
+  viewAccount,
+  getStaff,
+} = require("../controller/staff.contoller");
+const authorization = require("../middleware/auth");
+const confrim = require("../middleware/confrim");
+const { authority } = require("../middleware/role");
+const validate = require("../validation/formValidation");
+const router = express.Router();
+
+router.get("/staff", authorization, authority("Staff"), confrim, getStaff);
+router.get(
+  "/staff/home",
+  authorization,
+  authority("Staff"),
+  confrim,
+  getAllData
+);
+router.put(
+  "/staff/confrim/:id",
+  authorization,
+  authority("Staff"),
+  confrim,
+  confirmAccount
+);
+router.post(
+  "/staff/schedule/add-schedule",
+  authorization,
+  authority("Staff"),
+  validate("ADD_SCHEDULE"),
+  confrim,
+  addSchedule
+);
+router.get(
+  "/staff/schedule",
+  authorization,
+  authority("Staff"),
+  confrim,
+  viewSchedule
+);
+router.put(
+  "/staff/schedule/update",
+  authorization,
+  authority("Staff"),
+  validate("UPDATE_SCHEDULE"),
+  confrim,
+  editSchedule
+);
+router.get(
+  "/staff/schedule/detail",
+  authorization,
+  authority("Staff"),
+  confrim,
+  detailSchedule
+);
+router.delete(
+  "/staff/schedule/:id",
+  authorization,
+  authority("Staff"),
+  confrim,
+  deleteSchedule
+);
+router.get(
+  "/staff/teacher",
+  authorization,
+  authority("Staff"),
+  confrim,
+  viewTeacher
+);
+router.get(
+  "/staff/teacher/detail",
+  authorization,
+  authority("Staff"),
+  confrim,
+  detailTeacher
+);
+router.delete(
+  "/staff/teacher/:id",
+  authorization,
+  authority("Staff"),
+  confrim,
+  deleteTeacher
+);
+
+router.get(
+  "/staff/student",
+  authorization,
+  authority("Staff"),
+  confrim,
+  viewStudent
+);
+router.get(
+  "/staff/student/detail",
+  authorization,
+  authority("Staff"),
+  confrim,
+  detailStudent
+);
+router.delete(
+  "/staff/student/:id",
+  authorization,
+  authority("Staff"),
+  confrim,
+  deleteStudent
+);
+router.post(
+  "/staff/teacher/add-teacher",
+  authorization,
+  authority("Staff"),
+  validate("ADD_TEACHER"),
+  confrim,
+  addTeacher
+);
+router.put(
+  "/staff/teacher",
+  authorization,
+  authority("Staff"),
+  validate("UPDATE_TEACHER"),
+  confrim,
+  editTeacher
+);
+router.post(
+  "/staff/student/add-student",
+  authorization,
+  authority("Staff"),
+  validate("ADD_STUDENT"),
+  confrim,
+  addStudent
+);
+
+router.put(
+  "/staff/student/",
+  authorization,
+  authority("Staff"),
+  validate("ADD_STUDENT"),
+  confrim,
+  editStudent
+);
+router.post(
+  "/staff/class/add-class",
+  authorization,
+  authority("Staff"),
+  validate("ADD_CLASS"),
+  confrim,
+  addClass
+);
+router.get(
+  "/staff/class",
+  authorization,
+  authority("Staff"),
+  confrim,
+  viewClass
+);
+router.delete(
+  "/staff/class/:id",
+  authorization,
+  authority("Staff"),
+  confrim,
+  deleteClass
+);
+
+router.get(
+  "/staff/class/detail",
+  authorization,
+  authority("Staff"),
+  confrim,
+  detailClass
+);
+router.put(
+  "/staff/class/",
+  authorization,
+  authority("Staff"),
+  validate("ADD_CLASS"),
+  confrim,
+  editClass
+);
+
+router.get(
+  "/staff/account",
+  authorization,
+  authority("Staff"),
+  confrim,
+  viewAccount
+);
+module.exports = router;
